@@ -4,8 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Appbar from '@material-ui/core/Appbar';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import axios from 'axios';
-import SearchContext from '../Search';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -53,71 +51,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function SearchInput(props) {
+    const searchQuery = props.query;
     const classes = useStyles();
-    const isSearching = useRef()
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResult, setSearchResult] = useState('placeholder');
-    const context = useContext(SearchContext);
 
     const handleSearchInput = (event) => {
         const query = event.target.value;
-        setSearchQuery(query);
-        console.log('Test')
-        search();
+        searchQuery(query);
     };
-
-    async function search() {
-
-        // Pågående søk
-        const previousSearch = isSearching.current;
-        const currentSearch = Date.now();
-        isSearching.current = currentSearch;
-
-        // Utfør nytt søk
-        const result = await axios(
-            'http://127.0.0.1:8080/test/search?query=' + searchQuery
-        ).then((result) => {
-            if (currentSearch === isSearching.current) {
-                setSearchResult('Found result');
-                console.log("Success");
-            }
-            else {
-                console.log("Ignored");
-            }
-        }).catch((error) => {
-            if (currentSearch === isSearching.current) {
-                setSearchResult('Failed');
-                console.log("Failed");
-            } else {
-                console.log("Ignored");
-            }
-        });
-    }
 
     return (
         <div className={classes.grow}>
-            <Appbar>
-                <Toolbar>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Søk…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                            onChange={handleSearchInput}
-                        />
+            <Toolbar>
+                <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                        <SearchIcon />
                     </div>
-                </Toolbar>
-            </Appbar>
-            <div>
-                
-            </div>
+                    <InputBase
+                        placeholder="Søk…"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                        onChange={handleSearchInput}
+                    />
+                </div>
+            </Toolbar>
         </div>
     );
 }
