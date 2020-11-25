@@ -5,9 +5,6 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
-    grow: {
-        flexGrow: 1,
-    },
     menuButton: {
         marginRight: theme.spacing(2),
     },
@@ -60,23 +57,21 @@ export default function SearchInput(props) {
     };
 
     return (
-        <div className={classes.grow}>
-            <Toolbar>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        placeholder="Søk…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                        onChange={handleSearchInput}
-                    />
+        <Toolbar>
+            <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                    <SearchIcon />
                 </div>
-            </Toolbar>
-        </div>
+                <InputBase
+                    placeholder="Søk…"
+                    classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                    onChange={handleSearchInput}
+                />
+            </div>
+        </Toolbar>
     );
 }
