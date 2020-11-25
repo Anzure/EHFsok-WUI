@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Appbar from '@material-ui/core/Appbar';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 
