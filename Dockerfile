@@ -14,4 +14,7 @@ COPY --from=build-stage /app/build/ /usr/share/nginx/html
 COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
 
 # Building command:
-# docker build -t ehfsok-wui .
+#docker build -t ehfsok-wui .
+
+# Run command:
+#docker run -p 5000:80 ehfsok-wui

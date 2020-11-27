@@ -15,7 +15,7 @@ export default function Search() {
         isSearching.current = currentSearch;
 
         await axios(
-            'http://127.0.0.1:8080/search?query=' + query
+            'https://api.ehfsok.no/search?query=' + query
         ).then((result) => {
             if (currentSearch === isSearching.current)
                 setSearchResult(result.data);
