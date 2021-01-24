@@ -3,13 +3,15 @@ import axios from "axios";
 import { Grid } from "@material-ui/core";
 import SearchInput from "./components/SearchInput";
 import SearchResult from "./components/SearchResult";
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 export default function Search() {
   const isSearching = useRef();
   const [searchResult, setSearchResult] = useState([]);
 
   async function searchQuery(query) {
-    setSearchResult([]);
+    setSearchResult(null);
     const currentSearch = Date.now();
     isSearching.current = currentSearch;
 
@@ -19,7 +21,7 @@ export default function Search() {
       })
       .catch((error) => {
         console.warn("Failed to connect to API for search!");
-        setSearchResult([]);
+        setSearchResult(null);
       });
   }
 
@@ -35,7 +37,15 @@ export default function Search() {
         <SearchInput query={searchQuery} />
       </Grid>
       <Grid item>
-        <SearchResult result={searchResult} />
+        <ReactPlaceholder
+          style={{ width: 300 }}
+          showLoadingAnimation
+          type="text"
+          rows={7}
+          ready={searchResult}
+        >
+          <SearchResult result={searchResult ? searchResult : []} />
+        </ReactPlaceholder>
       </Grid>
     </Grid>
   );
